@@ -8,35 +8,59 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Agricultural Earth-tone Design System */
+    --background: 45 20% 97%;
+    --foreground: 30 15% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 30 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 30 15% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Saffron Primary - Cultural Indian Orange */
+    --primary: 25 95% 53%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 25 85% 65%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Agricultural Green Secondary */
+    --secondary: 120 40% 45%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Soil Brown Muted */
+    --muted: 35 25% 88%;
+    --muted-foreground: 30 15% 40%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Sky Blue Accent */
+    --accent: 200 80% 60%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 35 20% 85%;
+    --input: 35 20% 92%;
+    --ring: 25 95% 53%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
+
+    /* Agricultural Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-earth: linear-gradient(180deg, hsl(35 30% 85%), hsl(45 25% 90%));
+    --gradient-crop: linear-gradient(135deg, hsl(120 60% 50%), hsl(120 40% 40%));
+    
+    /* Voice UI Specific */
+    --voice-active: 25 95% 53%;
+    --voice-listening: 120 60% 50%;
+    --voice-processing: 200 80% 60%;
+    
+    /* Shadows with warm tones */
+    --shadow-warm: 0 4px 20px hsl(25 50% 50% / 0.15);
+    --shadow-glow: 0 0 30px hsl(var(--primary) / 0.3);
+    
+    /* Animation variables */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --pulse-duration: 2s;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +124,83 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    background: var(--gradient-earth);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Voice Button Animations */
+  .voice-button {
+    @apply relative overflow-hidden transition-all duration-300;
+    box-shadow: var(--shadow-warm);
+  }
+  
+  .voice-button.listening {
+    animation: pulse-glow var(--pulse-duration) infinite;
+  }
+  
+  .voice-button.processing {
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Cultural Design Elements */
+  .cultural-card {
+    @apply rounded-2xl border border-border bg-card/50 backdrop-blur-sm;
+    box-shadow: var(--shadow-warm);
+  }
+  
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-crop {
+    background: var(--gradient-crop);
+  }
+  
+  /* Icon Animations */
+  .bounce-gentle {
+    animation: bounce-gentle 2s infinite;
+  }
+  
+  .float {
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .text-shadow-warm {
+    text-shadow: 0 2px 4px hsl(var(--primary) / 0.2);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: var(--shadow-warm), 0 0 20px hsl(var(--voice-active) / 0.4);
+  }
+  50% {
+    box-shadow: var(--shadow-warm), 0 0 40px hsl(var(--voice-active) / 0.6);
+  }
+}
+
+@keyframes bounce-gentle {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+  60% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }
